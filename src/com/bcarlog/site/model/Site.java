@@ -12,12 +12,34 @@ import com.bcarlog.struct.model.AbsModel;
  * @author abelbcarvalho
  */
 public class Site extends AbsModel {
+    private String nameSite;
+    private String urlSite;
 
     /**
      * Create a new Site Instance.
      */
     public Site() {
         super();
+        this.nameSite = "";
+        this.urlSite = this.nameSite;
+    }
+
+    // getters and setters
+    
+    public String getNameSite() {
+        return nameSite;
+    }
+
+    public void setNameSite(String nameSite) {
+        this.nameSite = nameSite;
+    }
+
+    public String getUrlSite() {
+        return urlSite;
+    }
+
+    public void setUrlSite(String urlSite) {
+        this.urlSite = urlSite;
     }
     
 }
