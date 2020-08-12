@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.bcarlog.site.model;
+package com.bcarsoft.site.model;
 
-import com.bcarlog.struct.model.AbsModel;
+import com.bcarsoft.struct.model.AbsModel;
 
 /**
  * This is the model for Site table inside database.

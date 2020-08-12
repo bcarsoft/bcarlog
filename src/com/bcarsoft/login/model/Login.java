@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.bcarlog.login.model;
+package com.bcarsoft.login.model;
 
-import com.bcarlog.struct.model.AbsModel;
+import com.bcarsoft.struct.model.AbsModel;
 
 /**
  * This is the model for Login table inside database.
@@ -13,6 +13,7 @@ import com.bcarlog.struct.model.AbsModel;
  */
 public class Login extends AbsModel {
     private String siteLogin;
+    private String urlSiteLogin;
     private String userLogin;
     private String emailLogin;
     private String passLogin;
@@ -23,7 +24,8 @@ public class Login extends AbsModel {
     public Login() {
         super();
         this.siteLogin = "";
-        this.userLogin = this.siteLogin;
+        this.urlSiteLogin = this.siteLogin;
+        this.userLogin = this.urlSiteLogin;
         this.emailLogin = this.userLogin;
         this.passLogin = this.emailLogin;
     }
@@ -36,6 +38,14 @@ public class Login extends AbsModel {
 
     public void setSiteLogin(String siteLogin) {
         this.siteLogin = siteLogin;
+    }
+
+    public String getUrlSiteLogin() {
+        return urlSiteLogin;
+    }
+
+    public void setUrlSiteLogin(String urlSiteLogin) {
+        this.urlSiteLogin = urlSiteLogin;
     }
 
     public String getUserLogin() {

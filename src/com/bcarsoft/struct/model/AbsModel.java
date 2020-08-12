@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.bcarlog.struct.model;
+package com.bcarsoft.struct.model;
 
 /**
  * This is the project abstract model class, it is abstract and other model's class
