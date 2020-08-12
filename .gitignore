@@ -1,5 +1,7 @@
 # Compiled class file
 *.class
+# SQL Files
+*.sql
 # IDE Structures
 /nbproject/private/
 /build/
