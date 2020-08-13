@@ -5,6 +5,7 @@
  */
 package com.bcarsoft.account.model;
 
+import com.bcarsoft.struct.date.Date;
 import com.bcarsoft.struct.model.AbsModel;
 
 /**
@@ -14,9 +15,7 @@ import com.bcarsoft.struct.model.AbsModel;
 public class Account extends AbsModel {
     private String nameAcc;
     private String genderAcc;
-    private int monthAcc;
-    private int dayAcc;
-    private int yearAcc;
+    private Date date;
     private String userAcc;
     private String emailAcc;
     private String passAcc;
@@ -27,9 +26,7 @@ public class Account extends AbsModel {
      */
     public Account() {
         super();
-        this.monthAcc = 0;
-        this.dayAcc = this.monthAcc;
-        this.yearAcc = this.dayAcc;
+        this.date = null;
         this.nameAcc = "";
         this.genderAcc = this.nameAcc;
         this.userAcc = this.genderAcc;
@@ -56,28 +53,12 @@ public class Account extends AbsModel {
         this.genderAcc = genderAcc;
     }
 
-    public int getMonthAcc() {
-        return monthAcc;
+    public Date getDate() {
+        return date;
     }
 
-    public void setMonthAcc(int monthAcc) {
-        this.monthAcc = monthAcc;
-    }
-
-    public int getDayAcc() {
-        return dayAcc;
-    }
-
-    public void setDayAcc(int dayAcc) {
-        this.dayAcc = dayAcc;
-    }
-
-    public int getYearAcc() {
-        return yearAcc;
-    }
-
-    public void setYearAcc(int yearAcc) {
-        this.yearAcc = yearAcc;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public String getUserAcc() {
