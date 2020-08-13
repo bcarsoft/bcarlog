@@ -22,26 +22,52 @@ public class DAOSite extends DAOBase implements IDAOSite {
         super();
     }
 
+    /**
+     * Save Site.
+     * @param site Site Instance.
+     * @return true if success.
+     */
     @Override
     public boolean saveSite(Site site) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Update Site.
+     * @param site Site Instance.
+     * @return true if success.
+     */
     @Override
     public boolean updateSite(Site site) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Delete Site.
+     * @param site Site Instance.
+     * @return true if success.
+     */
     @Override
     public boolean deleteSite(Site site) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Find All Site.
+     * @param site Site Instance.
+     * @return not null if success.
+     */
     @Override
     public List<Site> findAllSite(Site site) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Find Specific Site.
+     * @param data List.
+     * @param sql String.
+     * @return not null if success.
+     */
     @Override
     public List<Site> findSpecificSite(List data, String sql) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

@@ -22,26 +22,51 @@ public class DAOAccount extends DAOBase implements IDAOAccount {
         super();
     }
 
+    /**
+     * Save Account.
+     * @param account Account instance.
+     * @return true if success.
+     */
     @Override
     public boolean saveAccount(Account account) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Update Account.
+     * @param account Account instance.
+     * @return true if success.
+     */
     @Override
     public boolean updateAccount(Account account) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Update Password Account.
+     * @param account Account instance.
+     * @return true if success.
+     */
     @Override
     public boolean updatePasswordAccount(Account account) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Delete Account.
+     * @param account Account instance.
+     * @return true if success.
+     */
     @Override
     public boolean deleteAccount(Account account) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Find an Account.
+     * @param account Account instance.
+     * @return not null if success.
+     */
     @Override
     public List<Account> findAccount(Account account) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

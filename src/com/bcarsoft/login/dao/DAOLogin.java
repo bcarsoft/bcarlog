@@ -22,26 +22,52 @@ public class DAOLogin extends DAOBase implements IDAOLogin {
         super();
     }
 
+    /**
+     * Save Login.
+     * @param login Login Instance.
+     * @return true if success.
+     */
     @Override
     public boolean saveLogin(Login login) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Update Login.
+     * @param login Login Instance.
+     * @return true if success.
+     */
     @Override
     public boolean updateLogin(Login login) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Delete Login.
+     * @param login Login Instance.
+     * @return true if success.
+     */
     @Override
     public boolean deleteLogin(Login login) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Find All Login.
+     * @param login Login Instance.
+     * @return not null if success.
+     */
     @Override
     public List<Login> findAllLogin(Login login) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Save Login.
+     * @param data List.
+     * @param sql String.
+     * @return not null if success.
+     */
     @Override
     public List<Login> findSpecificLogin(List data, String sql) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
