@@ -13,7 +13,7 @@ import java.sql.SQLException;
 
 /**
  * This class is for create a connection with database.
- * @author abel
+ * @author abelbcarvalho
  */
 public class ConFactory {
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";

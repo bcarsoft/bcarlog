@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * DAOBase interface.
- * @author abel
+ * @author abelbcarvalho
  */
 public interface IDAOBase {
     public abstract boolean save(String sql);

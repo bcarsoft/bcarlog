@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 
 /**
  * DAOBase.
- * @author abel
+ * @author abelbcarvalho
  */
 public class DAOBase implements IDAOBase {
     private Connection con;
