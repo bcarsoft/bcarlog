@@ -111,7 +111,7 @@ public class ServiceLogin implements IServiceLogin {
         this.setDone(login.getFk() > 0);
         if (!this.isDone()) return null;
         // if came here, success with checks
-        return getDAO().findAllLogin(login);
+        return this.decryptAll(getDAO().findAllLogin(login));
     }
 
     /**
@@ -126,7 +126,7 @@ public class ServiceLogin implements IServiceLogin {
         // encrypt
         data = this.encryptStringsAtIt(data);
         // if came here, checks success
-        return getDAO().findSpecificLogin(data, sql);
+        return this.decryptAll(getDAO().findSpecificLogin(data, sql));
     }
     
     /**
