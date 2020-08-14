@@ -7,6 +7,12 @@ package com.bcarsoft.account.service;
 
 import com.bcarsoft.account.dao.IDAOAccount;
 import com.bcarsoft.account.model.Account;
+import com.bcarsoft.struct.singleton.SingDateUtil;
+import com.bcarsoft.struct.singleton.SingEmailUtil;
+import com.bcarsoft.struct.singleton.SingMobileUtil;
+import com.bcarsoft.struct.singleton.SingPassUtil;
+import com.bcarsoft.struct.singleton.SingUserUtil;
+import com.bcarsoft.struct.utilities.StringUtil;
 import java.util.List;
 
 /**
@@ -15,6 +21,7 @@ import java.util.List;
  */
 public class ServiceAccount implements IServiceAccount {
     private final static IDAOAccount DAO;
+    private boolean done;
     
     static {DAO = new com.bcarsoft.account.dao.DAOAccount();}
 
@@ -25,6 +32,18 @@ public class ServiceAccount implements IServiceAccount {
      */
     @Override
     public boolean saveAccount(Account account) {
+        // null or empty checker
+        if (!this.isNotNullOrEmpty(account)) return this.isDone();
+        // date checker
+        this.setDone(this.isValideDate(account));
+        if (!this.isDone()) return this.isDone();
+        // login info checks
+        this.setDone(this.enterInfoCheck(account));
+        if (!this.isDone()) return this.isDone();
+        // mobile info checks
+        this.setDone(this.isMobileValid(account));
+        if (!this.isDone()) return this.isDone();
+        // if came here, sucess with checker
         return getDAO().saveAccount(account);
     }
 
@@ -35,6 +54,21 @@ public class ServiceAccount implements IServiceAccount {
      */
     @Override
     public boolean updateAccount(Account account) {
+        // id checker
+        this.setDone(account.getId() > 0);
+        if (!this.isDone()) return this.isDone();
+        // null or empty checker
+        if (!this.isNotNullOrEmpty(account)) return this.isDone();
+        // date checker
+        this.setDone(this.isValideDate(account));
+        if (!this.isDone()) return this.isDone();
+        // login info checks
+        this.setDone(this.enterInfoCheck(account));
+        if (!this.isDone()) return this.isDone();
+        // mobile info checks
+        this.setDone(this.isMobileValid(account));
+        if (!this.isDone()) return this.isDone();
+        // if came here, success with checker
         return getDAO().updateAccount(account);
     }
 
@@ -45,6 +79,18 @@ public class ServiceAccount implements IServiceAccount {
      */
     @Override
     public boolean updatePasswordAccount(Account account) {
+        // user or email
+        if (!(SingEmailUtil.getInstance().isEmailValid(account.getUserAcc()) ||
+                SingUserUtil.getInstance().isValidUsername(account.getUserAcc()))) {
+            return false;
+        }
+        if (!SingPassUtil.getInstance().isValidPassword(account.getPassAcc())) {
+            return false;
+        }
+        // mobile info checks
+        this.setDone(this.isMobileValid(account));
+        if (!this.isDone()) return this.isDone();
+        // if came here, success to checks
         return getDAO().updatePasswordAccount(account);
     }
 
@@ -55,6 +101,10 @@ public class ServiceAccount implements IServiceAccount {
      */
     @Override
     public boolean deleteAccount(Account account) {
+        // id checker
+        this.setDone(account.getId() > 0);
+        if (!this.isDone()) return this.isDone();
+        // if came here, success with checker
         return getDAO().deleteAccount(account);
     }
 
@@ -65,13 +115,99 @@ public class ServiceAccount implements IServiceAccount {
      */
     @Override
     public List<Account> findAccount(Account account) {
+        if (StringUtil.isNullOrEmpty(account.getUserAcc()) || 
+                StringUtil.isNullOrEmpty(account.getEmailAcc())) {
+            return null;
+        }
+        if (StringUtil.isNullOrEmpty(account.getPassAcc())) {return null;}
         return getDAO().findAccount(account);
+    }
+    
+    /**
+     * It is not null or empty.
+     * @param account Account Instance.
+     * @return true if success.
+     */
+    private boolean isNotNullOrEmpty(Account account) {
+        this.setDone(StringUtil.isNullOrEmpty(account.getNameAcc()));
+        if (this.isDone()) return !this.isDone();
+        this.setDone(StringUtil.isNullOrEmpty(account.getGenderAcc()));
+        if (this.isDone()) return !this.isDone();
+        this.setDone(StringUtil.isNullOrEmpty(account.getUserAcc()));
+        if (this.isDone()) return !this.isDone();
+        this.setDone(StringUtil.isNullOrEmpty(account.getEmailAcc()));
+        if (this.isDone()) return !this.isDone();
+        this.setDone(StringUtil.isNullOrEmpty(account.getPassAcc()));
+        if (this.isDone()) return !this.isDone();
+        this.setDone(StringUtil.isNullOrEmpty(account.getMobileAcc()));
+        if (this.isDone()) return !this.isDone();
+        // if came here, all wright
+        this.setDone(true);
+        return this.isDone();
+    }
+    
+    /**
+     * This method checker.
+     * @param account Account Instance.
+     * @return true if success.
+     */
+    private boolean isValideDate(Account account) {
+        // date checker
+        this.setDone(SingDateUtil.getInstance().isDateValid(account.getDate()));
+        if (!this.isDone()) return this.isDone();
+        // if came here, success with checker
+        this.setDone(true);
+        return this.isDone();
+    }
+    
+    /**
+     * This method can checker information like user, pass, email.
+     * @param account Account instance.
+     * @return true if success.
+     */
+    private boolean enterInfoCheck(Account account) {
+        // check user name
+        this.setDone(SingUserUtil.getInstance().isValidUsername(account.getUserAcc()));
+        if (!this.isDone()) return this.isDone();
+        // check email
+        this.setDone(SingEmailUtil.getInstance().isEmailValid(account.getEmailAcc()));
+        if (!this.isDone()) return this.isDone();
+        // check password
+        this.setDone(SingPassUtil.getInstance().isValidPassword(account.getPassAcc()));
+        if (!this.isDone()) return this.isDone();
+        // if came here, checks success
+        this.setDone(true);
+        return this.isDone();
+    }
+    
+    /**
+     * This method is for validate a phone number before sent information to database,
+     * @param account Account instance.
+     * @return true if success.
+     */
+    private boolean isMobileValid(Account account) {
+        // mobile checks
+        this.setDone(SingMobileUtil.getInstance().isValidMobile(account.getMobileAcc()));
+        if (!this.isDone()) return this.isDone();
+        // if came here, sucess
+        this.setDone(true);
+        return this.isDone();
     }
 
     // getters
     
-    public static IDAOAccount getDAO() {
+    private static IDAOAccount getDAO() {
         return DAO;
+    }
+    
+    // is and setters
+
+    protected boolean isDone() {
+        return done;
+    }
+
+    protected void setDone(boolean done) {
+        this.done = done;
     }
     
 }
