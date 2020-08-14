@@ -8,6 +8,7 @@ package com.bcarsoft.struct.facade;
 import java.util.List;
 import com.bcarsoft.account.model.Account;
 import com.bcarsoft.login.model.Login;
+import com.bcarsoft.pass.model.Pass;
 import com.bcarsoft.site.model.Site;
 
 /**
@@ -41,5 +42,9 @@ public interface IFacade {
     public abstract List<Site> findAllSite(Site site);
     public abstract List<Site> findSpecificSite(List data, String sql);
     // Site Part ---------------------------------------------------------------
+    
+    // Pass Part ---------------------------------------------------------------
+    public abstract String generatePassword(Pass pass);
+    // Pass Part ---------------------------------------------------------------
     
 }

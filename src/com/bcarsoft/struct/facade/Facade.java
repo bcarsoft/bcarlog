@@ -10,6 +10,8 @@ import com.bcarsoft.account.model.Account;
 import com.bcarsoft.account.service.IServiceAccount;
 import com.bcarsoft.login.model.Login;
 import com.bcarsoft.login.service.IServiceLogin;
+import com.bcarsoft.pass.model.Pass;
+import com.bcarsoft.pass.service.IServicePass;
 import com.bcarsoft.site.model.Site;
 import com.bcarsoft.site.service.IServiceSite;
 
@@ -25,6 +27,8 @@ public class Facade implements IFacade {
             new com.bcarsoft.login.service.ServiceLogin();
     private final IServiceSite serviceSite = 
             new com.bcarsoft.site.service.ServiceSite();
+    private final IServicePass servicePass = 
+            new com.bcarsoft.pass.service.ServicePass();
     // Bellow, all methods of this facade.
     
     // Account Part ------------------------------------------------------------
@@ -222,5 +226,19 @@ public class Facade implements IFacade {
     }
     
     // Site Part ---------------------------------------------------------------
+    
+    // Pass Part ---------------------------------------------------------------
+
+    /**
+     * This method calls a tool to generate a new password.
+     * @param pass Pass Instance.
+     * @return A new Password.
+     */
+    @Override
+    public String generatePassword(Pass pass) {
+        return this.servicePass.generatePassword(pass);
+    }
+    
+    // Pass Part ---------------------------------------------------------------
     
 }
