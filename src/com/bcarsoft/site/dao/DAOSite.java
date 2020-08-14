@@ -7,6 +7,9 @@ package com.bcarsoft.site.dao;
 
 import com.bcarsoft.site.model.Site;
 import com.bcarsoft.struct.dao.DAOBase;
+import com.bcarsoft.struct.sql.ConFactory;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,12 +17,14 @@ import java.util.List;
  * @author abelbcarvalho
  */
 public class DAOSite extends DAOBase implements IDAOSite {
+    private String sql;
     
     /**
      * New instance of DAO Site class.
      */
     public DAOSite() {
         super();
+        this.sql = "";
     }
 
     /**
@@ -29,7 +34,14 @@ public class DAOSite extends DAOBase implements IDAOSite {
      */
     @Override
     public boolean saveSite(Site site) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // sql query
+        this.setSql(
+            "INSERT INTO tbSite (nameSite,urlSite,idAcc) VALUES (?,?,?)"
+        );
+        // insert data into a List
+        this.insertFromObjectInsideList(site);
+        this.getData().add(site.getFk());
+        return this.save(this.getSql());
     }
 
     /**
@@ -39,7 +51,15 @@ public class DAOSite extends DAOBase implements IDAOSite {
      */
     @Override
     public boolean updateSite(Site site) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // sql query
+        this.setSql(
+            "UPDATE tbSite SET nameSite=?,urlSite=? WHERE idSite=? AND idAcc=?"
+        );
+        // insert data into a List
+        this.insertFromObjectInsideList(site);
+        this.getData().add(site.getId());
+        this.getData().add(site.getFk());
+        return this.save(this.getSql());
     }
 
     /**
@@ -49,7 +69,8 @@ public class DAOSite extends DAOBase implements IDAOSite {
      */
     @Override
     public boolean deleteSite(Site site) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.setSql("DELETE FROM tbSite WHERE idSite=?");
+        return this.delete(site.getId(), this.getSql());
     }
     
     /**
@@ -59,7 +80,8 @@ public class DAOSite extends DAOBase implements IDAOSite {
      */
     @Override
     public boolean deleteAllSite(Site site) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.setSql("DELETE FROM tbSite WHERE idAcc=?");
+        return this.delete(site.getFk(), this.getSql());
     }
 
     /**
@@ -69,7 +91,30 @@ public class DAOSite extends DAOBase implements IDAOSite {
      */
     @Override
     public List<Site> findAllSite(Site site) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // set data and sql query
+        this.setData(new ArrayList<>());
+        this.getData().clear();
+        this.getData().add(site.getFk());
+        this.setSql("SELECT * FROM tbSite WHERE idAcc=?");
+        // new Login list
+        List<Site> sitL = new ArrayList<>();
+        // try catch
+        try {
+            this.setResult(this.findAll(this.getSql()));
+            while (this.getResult().next()) {
+                Site st = new Site();
+                st.setId(this.getResult().getInt("idSite"));
+                st.setNameSite(this.getResult().getString("nameSite"));
+                st.setUrlSite(this.getResult().getString("urlSite"));
+                st.setFk(this.getResult().getInt("idAcc"));
+                sitL.add(st);
+            }
+            return sitL;
+        } catch (SQLException e) {
+            return null;
+        } finally {
+            ConFactory.closeConnection(this.getCon(), this.getStmt(), this.getResult());
+        }
     }
 
     /**
@@ -80,7 +125,50 @@ public class DAOSite extends DAOBase implements IDAOSite {
      */
     @Override
     public List<Site> findSpecificSite(List data, String sql) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // seting data
+        this.setData(data);
+        this.setSql(sql);
+        // new Login list
+        List<Site> sitL = new ArrayList<>();
+        // try catch
+        try {
+            this.setResult(this.findAll(this.getSql()));
+            while (this.getResult().next()) {
+                Site st = new Site();
+                st.setId(this.getResult().getInt("idSite"));
+                st.setNameSite(this.getResult().getString("nameSite"));
+                st.setUrlSite(this.getResult().getString("urlSite"));
+                st.setFk(this.getResult().getInt("idAcc"));
+                sitL.add(st);
+            }
+            return sitL;
+        } catch (SQLException e) {
+            return null;
+        } finally {
+            ConFactory.closeConnection(this.getCon(), this.getStmt(), this.getResult());
+        }
+    }
+    
+    /**
+     * This method take the object parameters and insert into a list
+     * @param login Login instance
+     */
+    private void insertFromObjectInsideList(Site site) {
+        if (site == null) {return;}
+        this.setData(new ArrayList<>());
+        this.getData().clear();
+        this.getData().add(site.getNameSite());
+        this.getData().add(site.getUrlSite());
+    }
+    
+    // getters and setters
+
+    protected String getSql() {
+        return sql;
+    }
+
+    protected void setSql(String sql) {
+        this.sql = sql;
     }
     
 }

@@ -87,7 +87,7 @@ public class DAOLogin extends DAOBase implements IDAOLogin {
     @Override
     public boolean deleteAllLogin(Login login) {
         this.setSql("DELETE FROM tbLogin WHERE idAcc=?");
-        return this.delete(login.getId(), this.getSql());
+        return this.delete(login.getFk(), this.getSql());
     }
 
     /**
@@ -191,7 +191,7 @@ public class DAOLogin extends DAOBase implements IDAOLogin {
     
     /**
      * This method take the object parameters and insert into a list
-     * @param account Account instance
+     * @param login Login instance
      */
     private void insertFromObjectInsideList(Login login) {
         if (login == null) {return;}
