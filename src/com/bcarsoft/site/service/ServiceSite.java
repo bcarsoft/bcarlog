@@ -88,7 +88,7 @@ public class ServiceSite implements IServiceSite {
     public List<Site> findAllSite(Site site) {
         if (site.getFk() < 1) return null;
         // if came here, checks success
-        return getDAO().findAllSite(site);
+        return this.decryptAll(getDAO().findAllSite(site));
     }
 
     /**
@@ -104,7 +104,7 @@ public class ServiceSite implements IServiceSite {
         // encrypt
         data = this.encryptStringsAtIt(data);
         // if came here, success with checks
-        return getDAO().findSpecificSite(data, sql);
+        return this.decryptAll(getDAO().findSpecificSite(data, sql));
     }
     
     /**
@@ -147,6 +147,29 @@ public class ServiceSite implements IServiceSite {
         }
         return data;
     }
+    
+    // decrypt
+    
+    /**
+     * This method is for decrypt all data of saved sites.
+     * @param site Site Instance.
+     * @return not null if success.
+     */
+    private List<Site> decryptAll(List<Site> site) {
+        if (site == null) return null;
+        // decrypt
+        for (short i = 0; i < site.size(); i += 1) {
+            // site
+            site.get(i).setNameSite(AES.decrypting(site.get(i).getNameSite(), 
+                    SingAESPass.getInstance().getSitePass()));
+            // url
+            site.get(i).setUrlSite(AES.decrypting(site.get(i).getUrlSite(), 
+                    SingAESPass.getInstance().getSitePass()));
+        }
+        return site;
+    }
+    
+    // decrypt
 
     // getters
     
