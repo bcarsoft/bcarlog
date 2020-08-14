@@ -215,6 +215,38 @@ public class ServiceLogin implements IServiceLogin {
         }
         return data;
     }
+    
+    // decrypt
+    
+    /**
+     * This method can decrypt all logins information.
+     * @param login Login Instance.
+     * @return not null if success.
+     */
+    private List<Login> decryptAll(List<Login> login) {
+        if (login == null) return null;
+        // decypt all
+        for (short i = 0; i < login.size(); i += 1) {
+            // site
+            login.get(i).setSiteLogin(AES.decrypting(login.get(i).getSiteLogin(), 
+                    SingAESPass.getInstance().getLoginPass()));
+            // url
+            login.get(i).setUrlSiteLogin(AES.decrypting(login.get(i).getUrlSiteLogin(), 
+                    SingAESPass.getInstance().getLoginPass()));
+            // user
+            login.get(i).setUserLogin(AES.decrypting(login.get(i).getUserLogin(), 
+                    SingAESPass.getInstance().getLoginPass()));
+            // email
+            login.get(i).setUserLogin(AES.decrypting(login.get(i).getEmailLogin(), 
+                    SingAESPass.getInstance().getLoginPass()));
+            // pass
+            login.get(i).setUserLogin(AES.decrypting(login.get(i).getPassLogin(), 
+                    SingAESPass.getInstance().getLoginPass()));
+        }
+        return login;
+    }
+    
+    // decrypt
 
     // getters
     
