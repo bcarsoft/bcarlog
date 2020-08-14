@@ -7,6 +7,8 @@ package com.bcarsoft.login.service;
 
 import com.bcarsoft.login.dao.IDAOLogin;
 import com.bcarsoft.login.model.Login;
+import com.bcarsoft.struct.security.AES;
+import com.bcarsoft.struct.singleton.SingAESPass;
 import com.bcarsoft.struct.singleton.SingEmailUtil;
 import com.bcarsoft.struct.singleton.SingPassUtil;
 import com.bcarsoft.struct.singleton.SingUserUtil;
@@ -39,6 +41,9 @@ public class ServiceLogin implements IServiceLogin {
         // checks enter info
         this.setDone(this.enterInfoCheck(login));
         if (!this.isDone()) return this.isDone();
+        // encrypt
+        login = this.encryptSiteUrl(login);
+        login = this.enterInfoEncrypt(login);
         // if came here success with checks
         return getDAO().saveLogin(login);
     }
@@ -62,6 +67,9 @@ public class ServiceLogin implements IServiceLogin {
         // checks enter info
         this.setDone(this.enterInfoCheck(login));
         if (!this.isDone()) return this.isDone();
+        // encrypt
+        login = this.encryptSiteUrl(login);
+        login = this.enterInfoEncrypt(login);
         // if came here success with checks
         return getDAO().updateLogin(login);
     }
@@ -115,6 +123,8 @@ public class ServiceLogin implements IServiceLogin {
     @Override
     public List<Login> findSpecificLogin(List data, String sql) {
         if (data == null || StringUtil.isNullOrEmpty(sql)) return null;
+        // encrypt
+        data = this.encryptStringsAtIt(data);
         // if came here, checks success
         return getDAO().findSpecificLogin(data, sql);
     }
@@ -158,6 +168,52 @@ public class ServiceLogin implements IServiceLogin {
         // if came here, checks success
         this.setDone(true);
         return this.isDone();
+    }
+    
+    // encrypt 
+    
+    /**
+     * This method is for encrypt data.
+     * @param login Login instance.
+     * @return Login instance.
+     */
+    private Login encryptSiteUrl(Login login) {
+        // site
+        login.setSiteLogin(AES.encrypting(login.getSiteLogin(), SingAESPass.getInstance().getLoginPass()));
+        // url
+        login.setUrlSiteLogin(AES.encrypting(login.getUrlSiteLogin(), SingAESPass.getInstance().getLoginPass()));
+        return login;
+    }
+    
+    /**
+     * This method is for encrypt data.
+     * @param login Login instance.
+     * @return Login instance.
+     */
+    private Login enterInfoEncrypt(Login login) {
+        // user
+        login.setUserLogin(AES.encrypting(login.getUserLogin(), SingAESPass.getInstance().getLoginPass()));
+        // email
+        login.setUserLogin(AES.encrypting(login.getEmailLogin(), SingAESPass.getInstance().getLoginPass()));
+        // pass
+        login.setUserLogin(AES.encrypting(login.getPassLogin(), SingAESPass.getInstance().getLoginPass()));
+        return login;
+    }
+    
+    // encrypt
+    
+    /**
+     * This method takes all strings from a list and encrypt it.
+     * @param data List.
+     * @return not null if success.
+     */
+    public List encryptStringsAtIt(List data) {
+        for (short i = 0; i < data.size(); i += 1) {
+            if (data.get(i) instanceof java.lang.String) {
+                data.set(i, AES.encrypting((String) data.get(i), SingAESPass.getInstance().getLoginPass()));
+            }
+        }
+        return data;
     }
 
     // getters
