@@ -7,6 +7,8 @@ package com.bcarsoft.account.service;
 
 import com.bcarsoft.account.dao.IDAOAccount;
 import com.bcarsoft.account.model.Account;
+import com.bcarsoft.struct.security.AES;
+import com.bcarsoft.struct.singleton.SingAESPass;
 import com.bcarsoft.struct.singleton.SingDateUtil;
 import com.bcarsoft.struct.singleton.SingEmailUtil;
 import com.bcarsoft.struct.singleton.SingMobileUtil;
@@ -43,6 +45,10 @@ public class ServiceAccount implements IServiceAccount {
         // mobile info checks
         this.setDone(this.isMobileValid(account));
         if (!this.isDone()) return this.isDone();
+        // encrypt
+        account = this.encryptNameGender(account);
+        account = this.enterInfoEncrypt(account);
+        account = this.enterMobileEncrypt(account);
         // if came here, sucess with checker
         return getDAO().saveAccount(account);
     }
@@ -68,6 +74,10 @@ public class ServiceAccount implements IServiceAccount {
         // mobile info checks
         this.setDone(this.isMobileValid(account));
         if (!this.isDone()) return this.isDone();
+        // encrypt
+        account = this.encryptNameGender(account);
+        account = this.enterInfoEncrypt(account);
+        account = this.enterMobileEncrypt(account);
         // if came here, success with checker
         return getDAO().updateAccount(account);
     }
@@ -90,6 +100,9 @@ public class ServiceAccount implements IServiceAccount {
         // mobile info checks
         this.setDone(this.isMobileValid(account));
         if (!this.isDone()) return this.isDone();
+        // encrypt
+        account = this.enterInfoEncrypt(account);
+        account = this.enterMobileEncrypt(account);
         // if came here, success to checks
         return getDAO().updatePasswordAccount(account);
     }
@@ -120,6 +133,9 @@ public class ServiceAccount implements IServiceAccount {
             return null;
         }
         if (StringUtil.isNullOrEmpty(account.getPassAcc())) {return null;}
+        // encrypt
+        account = this.enterInfoEncrypt(account);
+        // if came here, success
         return getDAO().findAccount(account);
     }
     
@@ -179,6 +195,49 @@ public class ServiceAccount implements IServiceAccount {
         this.setDone(true);
         return this.isDone();
     }
+    
+    // encrypt 
+    
+    /**
+     * This method is for encrypt data.
+     * @param account Account Instance.
+     * @return Account instance.
+     */
+    private Account encryptNameGender(Account account) {
+        // name
+        account.setUserAcc(AES.encrypting(account.getNameAcc(), SingAESPass.getInstance().getAccountPass()));
+        // gender
+        account.setUserAcc(AES.encrypting(account.getGenderAcc(), SingAESPass.getInstance().getAccountPass()));
+        return account;
+    }
+    
+    /**
+     * This method is for encrypt data.
+     * @param account Account Instance.
+     * @return Account instance.
+     */
+    private Account enterInfoEncrypt(Account account) {
+        // user
+        account.setUserAcc(AES.encrypting(account.getUserAcc(), SingAESPass.getInstance().getAccountPass()));
+        // email
+        account.setUserAcc(AES.encrypting(account.getEmailAcc(), SingAESPass.getInstance().getAccountPass()));
+        // pass
+        account.setUserAcc(AES.encrypting(account.getPassAcc(), SingAESPass.getInstance().getAccountPass()));
+        return account;
+    }
+    
+    /**
+     * This method is for encrypt data.
+     * @param account Account Instance.
+     * @return Account instance.
+     */
+    private Account enterMobileEncrypt(Account account) {
+        // mobile
+        account.setUserAcc(AES.encrypting(account.getMobileAcc(), SingAESPass.getInstance().getAccountPass()));
+        return account;
+    }
+    
+    // encrypt
     
     /**
      * This method is for validate a phone number before sent information to database,
