@@ -136,7 +136,7 @@ public class ServiceAccount implements IServiceAccount {
         // encrypt
         account = this.enterInfoEncrypt(account);
         // if came here, success
-        return getDAO().findAccount(account);
+        return this.decryptAll(getDAO().findAccount(account));
     }
     
     /**
@@ -252,6 +252,41 @@ public class ServiceAccount implements IServiceAccount {
         this.setDone(true);
         return this.isDone();
     }
+    
+    // decrypt
+    
+    /**
+     * Decrypt all account information.
+     * @param account Account Instance.
+     * @return List.
+     */
+    private List<Account> decryptAll(List<Account> account) {
+        if (account == null) return null;
+        // decrypting
+        for (short i = 0; i < account.size(); i += 1) {
+            // name
+            account.get(i).setUserAcc(AES.decrypting(account.get(i).getNameAcc(), 
+                    SingAESPass.getInstance().getAccountPass()));
+            // gender
+            account.get(i).setUserAcc(AES.decrypting(account.get(i).getGenderAcc(), 
+                    SingAESPass.getInstance().getAccountPass()));
+            // user
+            account.get(i).setUserAcc(AES.decrypting(account.get(i).getUserAcc(), 
+                    SingAESPass.getInstance().getAccountPass()));
+            // email
+            account.get(i).setUserAcc(AES.decrypting(account.get(i).getEmailAcc(), 
+                    SingAESPass.getInstance().getAccountPass()));
+            // pass
+            account.get(i).setUserAcc(AES.decrypting(account.get(i).getPassAcc(), 
+                    SingAESPass.getInstance().getAccountPass()));
+            // mobile
+            account.get(i).setUserAcc(AES.decrypting(account.get(i).getMobileAcc(), 
+                    SingAESPass.getInstance().getAccountPass()));
+        }
+        return account;
+    }
+    
+    // decrypt
 
     // getters
     
