@@ -119,6 +119,17 @@ public class Facade implements IFacade {
     public boolean deleteLogin(Login login) {
        return this.serviceLogin.deleteLogin(login);
     }
+    
+    /**
+     * This method calls the Login service to Delete All and if it be okay, so it 
+     * calls the DAO layer to work with database.
+     * @param login Login Instance.
+     * @return true if Login was deleted.
+     */
+    @Override
+    public boolean deleteAllLogin(Login login) {
+        return this.serviceLogin.deleteAllLogin(login);
+    }
 
     /**
      * This method is for find a Login from inside database.
@@ -176,6 +187,17 @@ public class Facade implements IFacade {
     @Override
     public boolean deleteSite(Site site) {
         return this.serviceSite.deleteSite(site);
+    }
+    
+    /**
+     * This method calls the Site service to Delete All and if it be okay, so it 
+     * calls the DAO layer to work with database.
+     * @param site Site Instance.
+     * @return true if Site was deleted.
+     */
+    @Override
+    public boolean deleteAllSite(Site site) {
+        return this.serviceSite.deleteAllSite(site);
     }
 
     /**

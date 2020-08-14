@@ -51,6 +51,16 @@ public class DAOSite extends DAOBase implements IDAOSite {
     public boolean deleteSite(Site site) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    /**
+     * Delete all sites by the foreign key.
+     * @param site Site instance.
+     * @return true if success.
+     */
+    @Override
+    public boolean deleteAllSite(Site site) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     /**
      * Find All Site.

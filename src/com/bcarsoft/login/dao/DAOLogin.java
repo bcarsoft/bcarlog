@@ -51,6 +51,16 @@ public class DAOLogin extends DAOBase implements IDAOLogin {
     public boolean deleteLogin(Login login) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    /**
+     * Delete All Logins.
+     * @param login Login Instance.
+     * @return true if success.
+     */
+    @Override
+    public boolean deleteAllLogin(Login login) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     /**
      * Find All Login.

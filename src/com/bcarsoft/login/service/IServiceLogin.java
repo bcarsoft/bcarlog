@@ -16,6 +16,7 @@ public interface IServiceLogin {
     public abstract boolean saveLogin(Login login);
     public abstract boolean updateLogin(Login login);
     public abstract boolean deleteLogin(Login login);
+    public abstract boolean deleteAllLogin(Login login);
     public abstract List<Login> findAllLogin(Login login);
     public abstract List<Login> findSpecificLogin(List data, String sql);
 }

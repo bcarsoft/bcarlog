@@ -16,6 +16,7 @@ public interface IDAOSite {
     public abstract boolean saveSite(Site site);
     public abstract boolean updateSite(Site site);
     public abstract boolean deleteSite(Site site);
+    public abstract boolean deleteAllSite(Site site);
     public abstract List<Site> findAllSite(Site site);
     public abstract List<Site> findSpecificSite(List data, String sql);
 }

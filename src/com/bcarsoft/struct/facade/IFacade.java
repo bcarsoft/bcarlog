@@ -28,6 +28,7 @@ public interface IFacade {
     public abstract boolean saveLogin(Login login);
     public abstract boolean updateLogin(Login login);
     public abstract boolean deleteLogin(Login login);
+    public abstract boolean deleteAllLogin(Login login);
     public abstract List<Login> findAllLogin(Login login);
     public abstract List<Login> findSpecificLogin(List data, String sql);
     // Login Part --------------------------------------------------------------
@@ -36,6 +37,7 @@ public interface IFacade {
     public abstract boolean saveSite(Site site);
     public abstract boolean updateSite(Site site);
     public abstract boolean deleteSite(Site site);
+    public abstract boolean deleteAllSite(Site site);
     public abstract List<Site> findAllSite(Site site);
     public abstract List<Site> findSpecificSite(List data, String sql);
     // Site Part ---------------------------------------------------------------
