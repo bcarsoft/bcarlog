@@ -7,6 +7,8 @@ package com.bcarsoft.site.service;
 
 import com.bcarsoft.site.dao.IDAOSite;
 import com.bcarsoft.site.model.Site;
+import com.bcarsoft.struct.security.AES;
+import com.bcarsoft.struct.singleton.SingAESPass;
 import com.bcarsoft.struct.utilities.StringUtil;
 import java.util.List;
 
@@ -30,6 +32,8 @@ public class ServiceSite implements IServiceSite {
         if (!(site.getFk() > 0)) return false;
         // checks data
         if (this.isNullOrEmptyString(site)) return false;
+        // encrypt
+        site = this.encryptSiteUrl(site);
         // if came here, success
         return getDAO().saveSite(site);
     }
@@ -47,6 +51,8 @@ public class ServiceSite implements IServiceSite {
         if (!(site.getFk() > 0)) return false;
         // checks data
         if (this.isNullOrEmptyString(site)) return false;
+        // encrypt
+        site = this.encryptSiteUrl(site);
         // if came here, success
         return getDAO().updateSite(site);
     }
@@ -95,6 +101,8 @@ public class ServiceSite implements IServiceSite {
     public List<Site> findSpecificSite(List data, String sql) {
         // checks the data list and sql string command
         if (data == null || StringUtil.isNullOrEmpty(sql)) return null;
+        // encrypt
+        data = this.encryptStringsAtIt(data);
         // if came here, success with checks
         return getDAO().findSpecificSite(data, sql);
     }
@@ -107,6 +115,37 @@ public class ServiceSite implements IServiceSite {
     private boolean isNullOrEmptyString(Site site) {
         if (StringUtil.isNullOrEmpty(site.getNameSite())) return true;
         return StringUtil.isNullOrEmpty(site.getUrlSite());
+    }
+    
+    // encrypt
+    
+    /**
+     * This method is for encrypt data.
+     * @param site Site instance.
+     * @return Site instance.
+     */
+    private Site encryptSiteUrl(Site site) {
+        // site
+        site.setNameSite(AES.encrypting(site.getNameSite(), SingAESPass.getInstance().getSitePass()));
+        // url
+        site.setUrlSite(AES.encrypting(site.getUrlSite(), SingAESPass.getInstance().getSitePass()));
+        return site;
+    }
+    
+    // encrypt
+    
+    /**
+     * This method takes all strings from a list and encrypt it.
+     * @param data List.
+     * @return not null if success.
+     */
+    private List encryptStringsAtIt(List data) {
+        for (short i = 0; i < data.size(); i += 1) {
+            if (data.get(i) instanceof java.lang.String) {
+                data.set(i, AES.encrypting((String) data.get(i), SingAESPass.getInstance().getLoginPass()));
+            }
+        }
+        return data;
     }
 
     // getters

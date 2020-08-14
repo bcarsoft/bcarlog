@@ -207,7 +207,7 @@ public class ServiceLogin implements IServiceLogin {
      * @param data List.
      * @return not null if success.
      */
-    public List encryptStringsAtIt(List data) {
+    private List encryptStringsAtIt(List data) {
         for (short i = 0; i < data.size(); i += 1) {
             if (data.get(i) instanceof java.lang.String) {
                 data.set(i, AES.encrypting((String) data.get(i), SingAESPass.getInstance().getLoginPass()));
