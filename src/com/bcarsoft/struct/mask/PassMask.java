@@ -29,6 +29,8 @@ public class PassMask {
             return pass;}
         if (StringUtil.isStringThisLen(pass.get(0), 1)) {
             pass.set(1, pass.get(0));}
+        else if (pass.get(1) == null || pass.get(1).isEmpty()) {
+            pass.set(1, pass.get(0));}
         else {
             pass.set(1, pass.get(1)+StringUtil.lastStrChar(pass.get(0)));}
         if (StringUtil.isStringGreaterThan(pass.get(0), 15))
