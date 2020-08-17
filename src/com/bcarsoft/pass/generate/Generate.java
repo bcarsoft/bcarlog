@@ -26,7 +26,7 @@ public class Generate extends AbsGenerate implements IGenerate {
      * @param pass Pass Object
      */
     @Override
-    public void gerenciandoPassInfo(Pass pass) {
+    public void managingPassInfo(Pass pass) {
         // clean all
         this.cleanAll();
         // validating data

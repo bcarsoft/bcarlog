@@ -7,6 +7,7 @@ package com.bcarsoft.bcarlog;
 
 import com.bcarsoft.account.model.Account;
 import com.bcarsoft.login.view.LoginCenter;
+import com.bcarsoft.pass.view.GeraSenha;
 import com.bcarsoft.site.view.SiteCenter;
 
 /**
@@ -392,6 +393,10 @@ public class BCarLogCenter extends javax.swing.JFrame {
      */
     private void lblPassGeneratorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPassGeneratorMouseClicked
         // TODO add your handling code here:
+        GeraSenha pass = new GeraSenha();
+        pass.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        pass.setLocationRelativeTo(null);
+        pass.setVisible(true);
     }//GEN-LAST:event_lblPassGeneratorMouseClicked
 
     /**

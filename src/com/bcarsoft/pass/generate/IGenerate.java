@@ -12,6 +12,6 @@ import com.bcarsoft.pass.model.Pass;
  * @author abelbcarvalho
  */
 public interface IGenerate {
-    public abstract void gerenciandoPassInfo(Pass pass);
+    public abstract void managingPassInfo(Pass pass);
     public abstract String getPasswordGenerate();
 }

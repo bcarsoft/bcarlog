@@ -35,8 +35,8 @@ public class ServicePass implements IServicePass{
         this.setPassword("");
         if (this.isInvalidSize(pass) || 
                 !this.isOneNotFalse(pass)) return this.getPassword();
-        getGEN().gerenciandoPassInfo(pass);
-        this.setPassword(getGEN().getPasswordGenerate());
+        getGEN().managingPassInfo(pass); // it's generating
+        this.setPassword(getGEN().getPasswordGenerate()); // it's taking
         return this.getPassword();
     }
     
