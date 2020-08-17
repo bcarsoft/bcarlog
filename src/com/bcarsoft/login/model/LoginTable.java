@@ -15,7 +15,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class LoginTable extends AbstractTableModel {
     private final List<Login> data = new ArrayList<>();
-    private final String[] columns = {"ID","Site","Link","Usuário","E-Mail","Senha","Editar","Deletar"};
+    private final String[] columns = {"ID","Site","Link","Usuário","E-Mail","Senha","Deletar"};
 
     /**
      * New Instance of LoginTable Model Class.

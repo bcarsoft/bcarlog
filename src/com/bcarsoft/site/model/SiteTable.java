@@ -15,7 +15,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class SiteTable extends AbstractTableModel {
     private final List<Site> data = new ArrayList<>();
-    private final String[] columns = {"ID","Nome do Site","Link do Site","Editar","Deletar"};
+    private final String[] columns = {"ID","Nome do Site","Link do Site","Deletar"};
 
     /**
      * New Instance of SiteTable Model Class.
