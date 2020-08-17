@@ -5,6 +5,8 @@
  */
 package com.bcarsoft.login.view;
 
+import com.bcarsoft.account.model.Account;
+import com.bcarsoft.bcarlog.BCarLogCenter;
 import com.bcarsoft.login.model.LoginTable;
 
 /**
@@ -13,12 +15,22 @@ import com.bcarsoft.login.model.LoginTable;
  */
 public class LoginCenter extends javax.swing.JFrame {
     private final LoginTable loginTable = new LoginTable();
+    private Account account;
 
     /**
      * Creates new form LoginCenter
      */
     public LoginCenter() {
         initComponents();
+    }
+    
+    /**
+     * New Instance of LoginCenter Alternative.
+     * @param account Account instance.
+     */
+    public LoginCenter(Account account) {
+        this.setAccount(account);
+        this.initComponents();
         this.tbLogins.setModel(this.getLoginTable());
     }
 
@@ -183,6 +195,14 @@ public class LoginCenter extends javax.swing.JFrame {
      */
     private void lblComeBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblComeBackMouseClicked
         // TODO add your handling code here:
+        this.setVisible(false);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.getDefaultCloseOperation();
+        // calls previous window
+        BCarLogCenter bcarlog = new BCarLogCenter(this.getAccount());
+        bcarlog.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        bcarlog.setLocationRelativeTo(null);
+        bcarlog.setVisible(true);
     }//GEN-LAST:event_lblComeBackMouseClicked
 
     /**
@@ -211,14 +231,22 @@ public class LoginCenter extends javax.swing.JFrame {
         });
     }
     
-    // getters
+    // getters and setters
 
     /**
      * This method returns a model to insert into tbLogins.
      * @return LoginTable Instance.
      */
-    public LoginTable getLoginTable() {
+    private LoginTable getLoginTable() {
         return loginTable;
+    }
+
+    private Account getAccount() {
+        return account;
+    }
+
+    private void setAccount(Account account) {
+        this.account = account;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

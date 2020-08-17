@@ -6,6 +6,7 @@
 package com.bcarsoft.account.view;
 
 import com.bcarsoft.account.model.Account;
+import com.bcarsoft.bcarlog.BCarLogCenter;
 import com.bcarsoft.struct.mask.PassMask;
 import com.bcarsoft.struct.singleton.SingFacade;
 import java.util.ArrayList;
@@ -282,6 +283,11 @@ public class AccountAccess extends javax.swing.JFrame {
             this.setDefaultCloseOperation(EXIT_ON_CLOSE);
             this.setVisible(false);
             this.getDefaultCloseOperation();
+            // new BCarLogCenter instance
+            BCarLogCenter bcarlog = new BCarLogCenter(account);
+            this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+            this.setLocationRelativeTo(null);
+            this.setVisible(true);
         }
     }//GEN-LAST:event_btnSingInActionPerformed
 

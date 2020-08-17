@@ -5,7 +5,10 @@
  */
 package com.bcarsoft.site.view;
 
+import com.bcarsoft.account.model.Account;
+import com.bcarsoft.bcarlog.BCarLogCenter;
 import com.bcarsoft.site.model.SiteTable;
+import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
 /**
  * This is the center of logins account saved.
@@ -13,12 +16,22 @@ import com.bcarsoft.site.model.SiteTable;
  */
 public class SiteCenter extends javax.swing.JFrame {
     private final SiteTable siteTable = new SiteTable();
+    private Account account;
 
     /**
      * Creates new form LoginCenter
      */
     public SiteCenter() {
         initComponents();
+    }
+    
+    /**
+     * New Instance of LoginCenter Alternative.
+     * @param account Account instance.
+     */
+    public SiteCenter(Account account) {
+        this.setAccount(account);
+        this.initComponents();
         this.tbSites.setModel(this.getSiteTable());
     }
 
@@ -183,6 +196,14 @@ public class SiteCenter extends javax.swing.JFrame {
      */
     private void lblComeBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblComeBackMouseClicked
         // TODO add your handling code here:
+        this.setVisible(false);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.getDefaultCloseOperation();
+        // calls previous window
+        BCarLogCenter bcarlog = new BCarLogCenter(this.getAccount());
+        bcarlog.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        bcarlog.setLocationRelativeTo(null);
+        bcarlog.setVisible(true);
     }//GEN-LAST:event_lblComeBackMouseClicked
 
     /**
@@ -212,14 +233,22 @@ public class SiteCenter extends javax.swing.JFrame {
         });
     }
     
-    // getters
+    // getters and setters
 
     /**
      * This method returns a model to inserts into tbSites.
      * @return SiteTable Instance.
      */
-    public SiteTable getSiteTable() {
+    private SiteTable getSiteTable() {
         return siteTable;
+    }
+    
+    private Account getAccount() {
+        return account;
+    }
+
+    private void setAccount(Account account) {
+        this.account = account;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
