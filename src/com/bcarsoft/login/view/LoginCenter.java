@@ -7,6 +7,7 @@ package com.bcarsoft.login.view;
 
 import com.bcarsoft.account.model.Account;
 import com.bcarsoft.bcarlog.BCarLogCenter;
+import com.bcarsoft.login.model.Login;
 import com.bcarsoft.login.model.LoginTable;
 
 /**
@@ -83,6 +84,11 @@ public class LoginCenter extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbLogins.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbLoginsMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tbLogins);
 
         lblTItle.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
@@ -141,6 +147,11 @@ public class LoginCenter extends javax.swing.JFrame {
 
         btnNew.setFont(new java.awt.Font("Lucida Grande", 0, 15)); // NOI18N
         btnNew.setText("Novo");
+        btnNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panMainLayout = new javax.swing.GroupLayout(panMain);
         panMain.setLayout(panMainLayout);
@@ -204,6 +215,38 @@ public class LoginCenter extends javax.swing.JFrame {
         bcarlog.setLocationRelativeTo(null);
         bcarlog.setVisible(true);
     }//GEN-LAST:event_lblComeBackMouseClicked
+
+    /**
+     * Calls register a new login.
+     * @param evt 
+     */
+    private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
+        // TODO add your handling code here:
+        Login lg = new Login();
+        lg.setFk(this.getAccount().getId());
+        LoginRegister login = new LoginRegister(lg);
+        login.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        login.setLocationRelativeTo(null);
+        login.setVisible(true);
+    }//GEN-LAST:event_btnNewActionPerformed
+
+    /**
+     * This method is for update and something more.
+     * @param evt 
+     */
+    private void tbLoginsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbLoginsMouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {
+            Login login = new Login();
+            login.setFk(this.getAccount().getId());
+            login.setId(Integer.parseInt(this.tbLogins
+                    .getValueAt(this.tbLogins.getSelectedRow(), 0).toString()));
+            LoginUpdate reg = new LoginUpdate(login);
+            reg.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            reg.setLocationRelativeTo(null);
+            reg.setVisible(true);
+        }
+    }//GEN-LAST:event_tbLoginsMouseClicked
 
     /**
      * @param args the command line arguments
