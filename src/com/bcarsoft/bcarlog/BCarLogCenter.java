@@ -236,6 +236,11 @@ public class BCarLogCenter extends javax.swing.JFrame {
         menFile.setText("Arquivo");
 
         minProfile.setText("Ver Perfil");
+        minProfile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                minProfileActionPerformed(evt);
+            }
+        });
         menFile.add(minProfile);
 
         minDelete.setText("Excluir Conta");
@@ -451,6 +456,18 @@ public class BCarLogCenter extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.generatePass();
     }//GEN-LAST:event_minInsertPassActionPerformed
+
+    /**
+     * See profile information.
+     * @param evt ActionEvent.
+     */
+    private void minProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minProfileActionPerformed
+        // TODO add your handling code here:
+        Profile profile = new Profile(this.getAccount());
+        profile.setLocationRelativeTo(null);
+        profile.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        profile.setVisible(true);
+    }//GEN-LAST:event_minProfileActionPerformed
 
     /**
      * @param args the command line arguments
