@@ -6,6 +6,7 @@
 package com.bcarsoft.bcarlog;
 
 import com.bcarsoft.account.model.Account;
+import com.bcarsoft.account.view.AccountAccess;
 import com.bcarsoft.login.view.LoginCenter;
 import com.bcarsoft.pass.view.GeraSenha;
 import com.bcarsoft.site.view.SiteCenter;
@@ -66,8 +67,8 @@ public class BCarLogCenter extends javax.swing.JFrame {
         minAccessTutorial = new javax.swing.JMenuItem();
         menTools = new javax.swing.JMenu();
         minInsertLogin = new javax.swing.JMenuItem();
-        minInsertSite = new javax.swing.JMenuItem();
         minInsertPass = new javax.swing.JMenuItem();
+        minInsertSite = new javax.swing.JMenuItem();
         menAbout = new javax.swing.JMenu();
         minLicence = new javax.swing.JMenuItem();
         minBcarsoft = new javax.swing.JMenuItem();
@@ -242,6 +243,11 @@ public class BCarLogCenter extends javax.swing.JFrame {
 
         minLogOut.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.META_MASK));
         minLogOut.setText("Sair");
+        minLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                minLogOutActionPerformed(evt);
+            }
+        });
         menFile.add(minLogOut);
 
         jMenuBar1.add(menFile);
@@ -259,28 +265,28 @@ public class BCarLogCenter extends javax.swing.JFrame {
         menTools.setText("Ferramentas");
 
         minInsertLogin.setText("Inserir Novo Login");
-        minInsertLogin.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                minInsertLoginMouseClicked(evt);
+        minInsertLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                minInsertLoginActionPerformed(evt);
             }
         });
         menTools.add(minInsertLogin);
 
-        minInsertSite.setText("Inserir Novo Site");
-        minInsertSite.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                minInsertSiteMouseClicked(evt);
-            }
-        });
-        menTools.add(minInsertSite);
-
         minInsertPass.setText("Gerador de Senhas");
-        minInsertPass.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                minInsertPassMouseClicked(evt);
+        minInsertPass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                minInsertPassActionPerformed(evt);
             }
         });
         menTools.add(minInsertPass);
+
+        minInsertSite.setText("Inserir Novo Site");
+        minInsertSite.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                minInsertSiteActionPerformed(evt);
+            }
+        });
+        menTools.add(minInsertSite);
 
         jMenuBar1.add(menTools);
 
@@ -321,14 +327,7 @@ public class BCarLogCenter extends javax.swing.JFrame {
      */
     private void lblSaveLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSaveLoginMouseClicked
         // TODO add your handling code here:
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setVisible(false);
-        this.getDefaultCloseOperation();
-        // set data
-        LoginCenter login = new LoginCenter(this.getAccount());
-        login.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        login.setLocationRelativeTo(null);
-        login.setVisible(true);
+        this.saveLogins();
     }//GEN-LAST:event_lblSaveLoginMouseClicked
 
     /**
@@ -357,14 +356,7 @@ public class BCarLogCenter extends javax.swing.JFrame {
      */
     private void lblSaveSitesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSaveSitesMouseClicked
         // TODO add your handling code here:
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setVisible(false);
-        this.getDefaultCloseOperation();
-        // set data
-        SiteCenter site = new SiteCenter(this.getAccount());
-        site.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        site.setLocationRelativeTo(null);
-        site.setVisible(true);
+        this.saveSites();
     }//GEN-LAST:event_lblSaveSitesMouseClicked
 
     /**
@@ -393,10 +385,7 @@ public class BCarLogCenter extends javax.swing.JFrame {
      */
     private void lblPassGeneratorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPassGeneratorMouseClicked
         // TODO add your handling code here:
-        GeraSenha pass = new GeraSenha();
-        pass.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        pass.setLocationRelativeTo(null);
-        pass.setVisible(true);
+        this.generatePass();
     }//GEN-LAST:event_lblPassGeneratorMouseClicked
 
     /**
@@ -420,31 +409,48 @@ public class BCarLogCenter extends javax.swing.JFrame {
     }//GEN-LAST:event_lblPassGeneratorMouseExited
 
     /**
-     * It calls the lable.
-     * @param evt MouseEvent click.
+     * Log Out Option Menu.
+     * @param evt ActionEvent.
      */
-    private void minInsertSiteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minInsertSiteMouseClicked
+    private void minLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minLogOutActionPerformed
         // TODO add your handling code here:
-        this.lblSaveSitesMouseClicked(evt);
-    }//GEN-LAST:event_minInsertSiteMouseClicked
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setAccount(null);
+        this.setVisible(false);
+        this.getDefaultCloseOperation();
+        // calls window of login
+        AccountAccess access = new AccountAccess();
+        access.setLocationRelativeTo(null);
+        access.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        access.setVisible(true);
+    }//GEN-LAST:event_minLogOutActionPerformed
 
     /**
-     * It calls the lable.
-     * @param evt MouseEvent click.
+     * Login Center Calls.
+     * @param evt ActionEvent.
      */
-    private void minInsertLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minInsertLoginMouseClicked
+    private void minInsertLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minInsertLoginActionPerformed
         // TODO add your handling code here:
-        this.lblSaveLoginMouseClicked(evt);
-    }//GEN-LAST:event_minInsertLoginMouseClicked
+        this.saveLogins();
+    }//GEN-LAST:event_minInsertLoginActionPerformed
 
     /**
-     * It calls the lable.
-     * @param evt MouseEvent click.
+     * Site Center Calls.
+     * @param evt ActionEvent.
      */
-    private void minInsertPassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minInsertPassMouseClicked
+    private void minInsertSiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minInsertSiteActionPerformed
         // TODO add your handling code here:
-        this.lblPassGeneratorMouseClicked(evt);
-    }//GEN-LAST:event_minInsertPassMouseClicked
+        this.saveSites();
+    }//GEN-LAST:event_minInsertSiteActionPerformed
+
+    /**
+     * Generate Password Screen Calls.
+     * @param evt ActionEvent.
+     */
+    private void minInsertPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minInsertPassActionPerformed
+        // TODO add your handling code here:
+        this.generatePass();
+    }//GEN-LAST:event_minInsertPassActionPerformed
 
     /**
      * @param args the command line arguments
@@ -470,6 +476,44 @@ public class BCarLogCenter extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> {
             new BCarLogCenter().setVisible(true);
         });
+    }
+    
+    /**
+     * Save Sites.
+     */
+    private void saveSites() {
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setVisible(false);
+        this.getDefaultCloseOperation();
+        // set data
+        SiteCenter site = new SiteCenter(this.getAccount());
+        site.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        site.setLocationRelativeTo(null);
+        site.setVisible(true);
+    }
+    
+    /**
+     * Save Logins. 
+     */
+    private void saveLogins() {
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setVisible(false);
+        this.getDefaultCloseOperation();
+        // set data
+        LoginCenter login = new LoginCenter(this.getAccount());
+        login.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        login.setLocationRelativeTo(null);
+        login.setVisible(true);
+    }
+    
+    /**
+     * Generate a new Password.
+     */
+    private void generatePass() {
+        GeraSenha pass = new GeraSenha();
+        pass.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        pass.setLocationRelativeTo(null);
+        pass.setVisible(true);
     }
     
     // getters and setters
