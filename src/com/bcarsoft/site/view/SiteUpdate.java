@@ -9,16 +9,16 @@ import com.bcarsoft.site.model.Site;
 import com.bcarsoft.struct.singleton.SingFacade;
 
 /**
- * This is the favorite site register screen.
+ * This is the favorite site updater screen.
  * @author abelbcarvalho
  */
-public class SiteRegister extends javax.swing.JFrame {
+public class SiteUpdate extends javax.swing.JFrame {
     private Site site = new Site();
 
     /**
      * Creates new form SiteRegister
      */
-    public SiteRegister() {
+    public SiteUpdate() {
         initComponents();
     }
     
@@ -26,9 +26,11 @@ public class SiteRegister extends javax.swing.JFrame {
      * New Instance of SiteUpdate, Alternative.
      * @param site Site Instance.
      */
-    public SiteRegister(Site site) {
+    public SiteUpdate(Site site) {
         this.setSite(site);
         this.initComponents();
+        this.txtID.setText(Integer.toString(this.getSite().getId()));
+        this.txtID.setEditable(false);
     }
 
     /**
@@ -44,21 +46,23 @@ public class SiteRegister extends javax.swing.JFrame {
         lblTitle = new javax.swing.JLabel();
         lblComeBack = new javax.swing.JLabel();
         panData = new javax.swing.JPanel();
+        lblID = new javax.swing.JLabel();
         lblName = new javax.swing.JLabel();
         lblLink = new javax.swing.JLabel();
+        txtID = new javax.swing.JTextField();
         txtName = new javax.swing.JTextField();
         txtLink = new javax.swing.JTextField();
         panFunction = new javax.swing.JPanel();
         lblImg = new javax.swing.JLabel();
-        btnRegister = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
         lblMsg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("BCarLog - Cadastrar Site");
+        setTitle("BCarLog - Atualizar Site");
         setResizable(false);
 
         lblTitle.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
-        lblTitle.setText("BCarLog - Cadastrar Site");
+        lblTitle.setText("BCarLog - Atualizar Site");
 
         lblComeBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/come-back-blue.png"))); // NOI18N
         lblComeBack.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -94,12 +98,17 @@ public class SiteRegister extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        lblID.setFont(new java.awt.Font("Lucida Grande", 0, 15)); // NOI18N
+        lblID.setText("Número de Indentificação*");
+
         lblName.setFont(new java.awt.Font("Lucida Grande", 0, 15)); // NOI18N
         lblName.setText("Nome do Site*");
 
         lblLink.setFont(new java.awt.Font("Lucida Grande", 0, 15)); // NOI18N
         lblLink.setText("Link do Site*");
         lblLink.setToolTipText("http://www.exemplo.com");
+
+        txtID.setFont(new java.awt.Font("Lucida Grande", 0, 15)); // NOI18N
 
         txtName.setFont(new java.awt.Font("Lucida Grande", 0, 15)); // NOI18N
 
@@ -112,6 +121,8 @@ public class SiteRegister extends javax.swing.JFrame {
             .addGroup(panDataLayout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addGroup(panDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblID)
                     .addComponent(txtLink, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblLink)
                     .addComponent(lblName)
@@ -121,29 +132,33 @@ public class SiteRegister extends javax.swing.JFrame {
         panDataLayout.setVerticalGroup(
             panDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panDataLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addContainerGap(19, Short.MAX_VALUE)
+                .addComponent(lblID)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblName)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblLink)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtLink, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addGap(22, 22, 22))
         );
 
         lblImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/site-icon.png"))); // NOI18N
 
-        btnRegister.setFont(new java.awt.Font("Lucida Grande", 0, 15)); // NOI18N
-        btnRegister.setText("Cadastrar");
-        btnRegister.addActionListener(new java.awt.event.ActionListener() {
+        btnUpdate.setFont(new java.awt.Font("Lucida Grande", 0, 15)); // NOI18N
+        btnUpdate.setText("Atualizar");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegisterActionPerformed(evt);
+                btnUpdateActionPerformed(evt);
             }
         });
 
         lblMsg.setFont(new java.awt.Font("Lucida Grande", 0, 15)); // NOI18N
-        lblMsg.setText("<html> <p> BCarLog<br> Cadastre<br> Sites Favoritos <p> </html>");
+        lblMsg.setText("<html> <p> BCarLog<br> Atualize seus<br> Sites Favoritos <p> </html>");
 
         javax.swing.GroupLayout panFunctionLayout = new javax.swing.GroupLayout(panFunction);
         panFunction.setLayout(panFunctionLayout);
@@ -159,7 +174,7 @@ public class SiteRegister extends javax.swing.JFrame {
                 .addGap(48, 48, 48))
             .addGroup(panFunctionLayout.createSequentialGroup()
                 .addGap(38, 38, 38)
-                .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panFunctionLayout.setVerticalGroup(
@@ -170,7 +185,7 @@ public class SiteRegister extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(lblMsg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnRegister)
+                .addComponent(btnUpdate)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -237,17 +252,17 @@ public class SiteRegister extends javax.swing.JFrame {
      * It will try to register a new Favorite Site.
      * @param evt 
      */
-    private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
         this.getSite().setNameSite(this.txtName.getText());
         this.getSite().setUrlSite(this.txtLink.getText());
         // test
-        if (SingFacade.getInstance().saveSite(site)) {
-            javax.swing.JOptionPane.showMessageDialog(null, "Site Favorito Cadastrado", "Sucesso ao Casdastrar", 0);
+        if (SingFacade.getInstance().updateSite(site)) {
+            javax.swing.JOptionPane.showMessageDialog(null, "Site Favorito Atualizado", "Sucesso ao Atualizar", 0);
         } else {
-            javax.swing.JOptionPane.showMessageDialog(null, "Erro ao tentar cadastrar\nsite favorito", "Erro Encontrado", 0);
+            javax.swing.JOptionPane.showMessageDialog(null, "Erro ao tentar atualizar\nsite favorito", "Erro Encontrado", 0);
         }
-    }//GEN-LAST:event_btnRegisterActionPerformed
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -266,19 +281,20 @@ public class SiteRegister extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SiteRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SiteUpdate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SiteRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SiteUpdate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SiteRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SiteUpdate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SiteRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SiteUpdate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new SiteRegister().setVisible(true);
+            new SiteUpdate().setVisible(true);
         });
     }
     
@@ -293,8 +309,9 @@ public class SiteRegister extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnRegister;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel lblComeBack;
+    private javax.swing.JLabel lblID;
     private javax.swing.JLabel lblImg;
     private javax.swing.JLabel lblLink;
     private javax.swing.JLabel lblMsg;
@@ -303,6 +320,7 @@ public class SiteRegister extends javax.swing.JFrame {
     private javax.swing.JPanel panData;
     private javax.swing.JPanel panFunction;
     private javax.swing.JPanel panHead;
+    private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtLink;
     private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
