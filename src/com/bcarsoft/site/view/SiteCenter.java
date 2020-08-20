@@ -7,6 +7,7 @@ package com.bcarsoft.site.view;
 
 import com.bcarsoft.account.model.Account;
 import com.bcarsoft.bcarlog.BCarLogCenter;
+import com.bcarsoft.site.model.Site;
 import com.bcarsoft.site.model.SiteTable;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
@@ -84,6 +85,11 @@ public class SiteCenter extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbSites.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbSitesMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tbSites);
 
         lblTItle.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
@@ -205,6 +211,24 @@ public class SiteCenter extends javax.swing.JFrame {
         bcarlog.setLocationRelativeTo(null);
         bcarlog.setVisible(true);
     }//GEN-LAST:event_lblComeBackMouseClicked
+
+    /**
+     * This method is for update and something more.
+     * @param evt 
+     */
+    private void tbSitesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbSitesMouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {
+            Site site = new Site();
+            site.setFk(this.getAccount().getId());
+            site.setId(Integer.parseInt(this.tbSites
+                    .getValueAt(this.tbSites.getSelectedRow(), 0).toString()));
+            SiteUpdate reg = new SiteUpdate(site);
+            reg.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            reg.setLocationRelativeTo(null);
+            reg.setVisible(true);
+        }
+    }//GEN-LAST:event_tbSitesMouseClicked
 
     /**
      * @param args the command line arguments
